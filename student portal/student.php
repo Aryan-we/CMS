@@ -1,0 +1,869 @@
+<?php
+ $connect=mysqli_connect("localhost","root","","faculty_upload_paper");
+ if($connect){
+     echo "Connection Ok new";
+ }
+ session_start();
+ $id=$_SESSION['id'];
+ $num=1;
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty portal</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="css file/faculty.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&family=Lora&family=PT+Serif:wght@400;700&family=Playfair+Display+SC:ital@1&family=Work+Sans:wght@200&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container-fluid header">
+    <div class="row">
+        <div class="col-12 col-md-2 logo">
+            <img src="img/logo.jfif"alt="college logo" height="200px" width="200px">
+        </div>
+        <div class="col-12 col-md-10 college-name">
+            <h1>Shambhunath Institute Of Engineering and Technology</h1>
+            <hr style="background-color:black; ">
+            <h4>Jhalwa, Prayagraj, Uttar Pradesh, Pin Code:211015</h4>
+        </div>
+    </div>
+    <div style="width:100%;height:50px; background-color:#da2222;display:flex;justify-content:space-between;align-items:center;s">
+    <a href="./faculty.php" style="text-decoration:none;"><div style="color:white;font-size:25px; cursor:pointer;">Home</div></a>
+    <a href="./my profile/logout.php" style="text-decoration:none;"><div style="color:white;font-size:25px; cursor:pointer;">Logout</div></a>
+    </div>
+    <div class="row student-portal-section">
+        <div class="col-12">
+            <hr style="border:2px solid red;">
+            <div class="row">
+                
+                <div class="col-12 col-md-4" style="background-color:#eee">
+                    
+                </div>
+                <div class="col-12 col-md-4" style="background-color:#eee;">
+                    
+                    <div class="student-portal-name">
+                        <h2 style="margin-left:0px;text-shadow:2px 2px 5px rgba(255, 0, 0, 0.555)">STUDENT PORTAL</h2>
+                    </div>
+                    
+                </div>
+                <div class="container-fluid">
+                <div class="container-fluid">
+                <div class="col-12 col-md-4" style="background-color:#eee;">
+                    
+                </div>   
+            </div>
+
+            <hr style="border:2px solid red;">
+        </div>
+
+    </div> 
+    
+   
+
+        <br>
+        <div class="row">
+            <div class="col-12 col-md-8 all-btn" style="height:auto;">
+                <div class="container student-menu-section" style="height:400px;">
+                    <div class="row">
+                        <div class="col-12 col-md-4" style="height:auto; width:auto;">
+                            <button>
+                                <a href="./my profile/display_profile.php" target="_blank" style="text-decoration:none;color:black;">
+                                    <img src="img/user.webp" height="100px" width="auto">
+                                    <br>
+                                    <h6>My Profile</h6>
+                                </a>
+                            </button>
+                        </div>
+                        <div class="col-12 col-md-4" style="height:auto;">
+                            <a href="./show attendance.php"><button>
+                                <img src="img/attendance.png" height="100px" width="auto">
+                                <br>
+                                <h6>My Attendance</h6>
+                            </button></a>
+                        </div>
+                        <div class="col-12 col-md-4" style="height:auto;">
+                            <button onclick="showresult()">
+                                <img src="img/result.jpg" height="100px" width="auto">
+                                <br>
+                                <h6>Mock Exam</h6>
+                            </button>
+                        </div>
+                        </div>
+                       
+                    
+                    <br>
+                    <div class="row">
+                        
+                     
+                    </div>
+                    <br>
+                    <div class="row">
+                    <div class="col-8 col-md-4" style="height:auto;">
+                            <button onclick="showpayment()">
+                                <img src="img/pay.jpeg" height="100px" width="auto">
+                                <br>
+                                <h6>Online Payment</h6>
+                            </button>
+                        </div>
+                        
+                        
+                        <div class="col-10 col-md-3" style=" height:auto;">
+                            <button onclick="showstudentactivity()">
+                                <img src="img/student activity.jpg" height="100px" width="auto">
+                                <br>
+                                <h6>Student Activity</h6>
+                            </button>
+                        </div>
+                        
+                        <div class="col-10 col-md-2" style=" height:auto;">
+                            <a href="../LMS/index.php">
+                            <button>
+
+                                    <img src="img/download.png" height="100px" width="auto">
+                                    <br>
+                                    <h6>Library</h6>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-3" style=" height:auto;">
+                            <button onclick="showonlineexam()">
+                                <img src="img/online exam.png" height="100px" width="auto">
+                                <br>
+                                <h6>Online Exam</h6>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <br>
+                    
+                </div>
+            </div>
+            <div class="col-12 col-md-4" style="height:auto;">
+                    <div class="container bg-info information" style="height:auto;">
+                        <div class="row">
+                            <div class="col-12 information-show" id="info" style="height:auto;">
+                                <h3>Information will be shown here</h3>
+                            </div>
+                            <div class="col-12 my-attendance" id="ad" style="height:auto;">
+                                <h3 style="text-align:center;">My Attendance</h3>
+                               <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Monday</th>
+                                        <th>Tueday</th>
+                                        <th>Wednesday</th>
+                                        <th>Thursday</th>
+                                        <th>Friday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>p</td>
+                                    </tr>
+                                </tbody>
+                               </table>
+                               
+                            </div>
+                            <div class="col-12 ca-marks" id="cm" style="height:auto;">
+                                <form>
+                               <h3 style="text-align:center;padding-bottom:15px;">My CA Marks</h3>
+                               <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>CA1</th>
+                                        <th>CA2</th>
+                                        <th>CA3</th>
+                                        <th>CA4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mathematics</td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Software Engineering</td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25""></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Database Management System</td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Entrepreneurship</td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Python Programming</td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                        <td><input type="number" placeholder="Enter Marks Out of 25"></td>
+                                    </tr>
+                                </tbody>
+                               </table>
+                               <button class="btn btn-primary" type="submit">upload</button>
+                            </form>
+                            </div>
+                            <div class="col-12 student-activity" id="sa" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;">My Activity</h3>
+                                <table class="table table-responsive">
+                                 <thead>
+                                     <tr>
+                                         <th>Activity</th>
+                                         <th>Points Earned<br>(out of 25)</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                                        <td>participated in college event</td>
+                                        <td>22</td>
+                                     </tr>
+                                     <tr>
+                                        <td>Fresher's Welcome</td>
+                                        <td>20</td>
+                                     </tr>
+                                     <tr>
+                                        <td>conducted blood donation camp</td>
+                                        <td>25</td>
+                                     </tr>
+                                     <tr>
+                                        <td>organized tech fest</td>
+                                        <td>22</td>
+                                     </tr>
+                                     <tr>
+                                        <td>college sports</td>
+                                        <td>24</td>
+                                     </tr>
+                                     <tr>
+                                        <td>participated in Debate competition</td>
+                                        <td>22</td>
+                                     </tr>
+                                     <tr>
+                                        <td>Quiz Competition</td>
+                                        <td>22</td>
+                                     </tr>
+                                     <tr>
+                                        <td>Donation for Special child</td>
+                                        <td>25</td>
+                                     </tr>
+                                 </tbody>
+                                </table>
+                             </div>
+                             <div class="col-12 registration-card" id="rc" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;">Registration card</h3>
+                                <table class="table table-responsive">
+                                 <thead>
+                                     <tr>
+                                         <th>Download Your Registration Card</th>
+                                         <th>Download here</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                                        <td>Registration Card for 1st sem</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Registration Card for 2nd sem</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Registration Card for 3rd sem</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Registration Card for 4th sem</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Registration Card for 5th sem</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Registration Card for 6th sem</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                 </tbody>
+                                </table>
+                             </div>
+                        
+                             <div class="col-12 mentor" id="mt" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;"> Student Attendance of  <input type="date" style="border-radius:9px;"></h3>
+                              
+                               
+                                <table class="table table-responsive">
+                                 <thead>
+                                     <tr>
+                                        <th>Student Name</th>
+                                        <th>Attendance</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                        <td>Abhiraj Sardar</td>
+                                        <td><select>
+                                            <option disabled selected input>----Give Attendance----</option>
+                                            <option value="p">Present</option>
+                                            <option value="a">Absent</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kathakali Bose</td>
+                                        <td><select>
+                                            <option disabled selected input>----Give Attendance----</option>
+                                            <option value="p">Present</option>
+                                            <option value="a">Absent</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rikel schildt</td>
+                                        <td><select>
+                                            <option disabled selected input>----Give Attendance----</option>
+                                            <option value="p">Present</option>
+                                            <option value="a">Absent</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Baivab Mukherjee</td>
+                                        <td><select>
+                                            <option disabled selected input>----Give Attendance----</option>
+                                            <option value="p">Present</option>
+                                            <option value="a">Absent</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Snehasish Bhattacharya</td>
+                                        <td><select>
+                                            <option disabled selected input>----Give Attendance----</option>
+                                            <option value="p">Present</option>
+                                            <option value="a">Absent</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rupak sarkar</td>
+                                        <td><select>
+                                            <option disabled selected input>----Give Attendance----</option>
+                                            <option value="p">Present</option>
+                                            <option value="a">Absent</option>
+                                        </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sujoy Bera</td>
+                                        <td><select>
+                                            <option disabled selected input>----Give Attendance----</option>
+                                            <option value="p">Present</option>
+                                            <option value="a">Absent</option>
+                                        </select></td>
+                                    </tr>
+                                 </tbody>
+                                </table>
+                             </div>
+                             <div class="col-12 result" id="rs" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;">Conduct Mock Exam</h3>
+                                <a href="https://www.eklavvya.com/blog/tips-eliminate-problems-online-exam/conduct-mock-exam/" target="_blank">
+                                    <img src="img/mock1.webp" height="300px" width="300px;">
+                                </a>
+                             </div>
+                             <div class="col-12 result" id="p" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;">Online Payment</h3>
+                                <!--<a href="#" target="_blank">-->
+                                    <img src="img/paylink.jpg" height="300px" width="300px;">
+                                </a>
+                             </div>
+                             <div class="col-12 online-exam" id="oe" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;">Online Exam</h3>
+                                <table class="table table-responsive">
+                                 <thead>
+                                    <tr>
+                                        <th>
+                                            <button onclick="copy()"  id="cp" value="https://meet.google.com/muo-xusw-ffv">
+                                               <strong>Copy-link</strong> 
+                                            </button> 
+                                        </th>
+                                        <th><a href="https://meet.google.com/muo-xusw-ffv">https://meet.google.com/muo-xusw-ffv</a></th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                    
+                                 </tbody>
+                                </table>
+                             </div>
+                           
+                             <div class="col-12 study-resource" id="sr" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;">Study Resources</h3>
+                                <table class="table table-responsive">
+                                 <thead>
+                                    <tr>
+                                        <th>Property</th>
+                                        <th>Upload Here</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td> <input type="file" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td> <input type="file" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td> <input type="file" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td> <input type="file" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td> <input type="file" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td> <input type="file" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td> <input type="file" class="form-control"></td>
+                                    </tr>
+                                    
+                                 </tbody>
+                                </table>
+                             </div>
+                             <div class="col-12 ref" id="rf" style="height:auto;">
+                                <h3 style="text-align:center;padding-bottom:15px;">Registration card</h3>
+                                <table class="table table-responsive">
+                                 <thead>
+                                     <tr>
+                                         <th>Name</th>
+                                         <th>Enrollment form</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr>
+                                        <td>Abhiraj Sardar</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Sujoy Bera</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Sayan Ghosh</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Rupak sarkar</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Rakesh Paul</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Rina Maity</td>
+                                        <td>
+                                            <button>
+                                                <a href="img/admit.png" download>download</a>
+                                            </button>
+                                        </td>
+                                     </tr>
+                                 </tbody>
+                                </table>
+                             </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <br>
+          <br>
+    
+        <br><br>
+
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 notice" style="height:400px;">
+                            <h2 style="text-align:center;">Rules & Regulations</h2>
+                            <hr>
+                            <marquee behavior="scroll" direction="up" height="300px" width="auto">
+                                <ol>
+                                    <li>Students, admitted in this college, will have to give an undertaking that he/she will not involve in any sort of ragging or any other indisciplinary act; if involved, he/she is liable to be punished accordingly.
+                                    </li>
+                                    <li>All the students should speak in English in the class rooms as well as in the college campus. They should maintain punctuality and decorum of the college. They should not shout or talk loudly in the college campus.
+                                    </li>
+                                    <li> Students should attend all Seminars, Guest Lectures, and Training Classes. Attendance will be given for all these activities. The students should utilize the counseling classes to express their feelings.
+                                    </li>
+                                    <li>Students should put up a minimum attendance of 75% in all subjects of the year/semester, as laid down by Andhra University. Students, falling short of 75% of attendance shall not be allowed for the university examinations at the end of the year in case of first year or semester in case of 2nd, 3rd,or4th years and shall not be allowed for promotion to the next semester of study. He/she shall be required to repeat the same course of study.
+                                    <li>
+                                    Students should maintain strict discipline inside the class rooms as well as in the college campus. They should keep the class rooms/college campus neat and tidy.
+                                    </li>
+                
+                                </ol>
+                            </marquee>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<br>
+<div class="container-fluid" style="background-color:rgb(33, 31, 31);">
+                <div class="row col-12">
+                  <div class="footer-partition mt-5 ml-3">
+                    <!-- <img src="img/Stanbw.png" height="100px" width="100px" style="margin-left:auto;margin-right:auto;display:block"> -->
+                    <h4 style="text-transform:uppercase;padding-top:6px;text-align:center;">Uttan Shambhunath Institutions</h4>
+                  </div>
+                  <div class="footer-partition mt-5 ml-2">
+                    <h6 style="padding-left:39px;padding-top:10px">Uttan Shambhunath Institutions</h6>
+                    <ul>
+                      <li>Jhalwa, Prayagraj</li>
+                      <li>Uttar Pradesh,</li>
+                      <li>Pin Code: 211015</li>
+                    </ul>
+                  </div>
+                  <div class="footer-partition mt-5 ml-2">
+                    <ul style="text-decoration:underline;line-height: 40px;cursor:pointer;">
+                      <li>Emergency Info</li>
+                      <li>Job Opportunities</li>            
+                      <li>Privacy</li>
+                    </ul>
+                  </div>
+                  <div class="footer-partition mt-5 ml-2">
+                    <ul style="text-decoration:underline;line-height: 40px;cursor:pointer;">
+                      <li>Campus Directory</li>
+                      <li>Contact Us</li>
+                      <li>Maps & Directions</li>
+                      <li>A-Z Listing</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="row justify-content-end" style="margin-right:172px">
+                  <a href="https://www.facebook.com/ShambhunathGroupOfInstitutions/"><i class="fa-brands fa-facebook-f" style="margin-left:15px"></i></a>
+                  <a href="https://www.instagram.com/siet_162/"><i class="fa-brands fa-instagram" style="margin-left:15px"></i></a>       
+                  <i class="fa-brands fa-linkedin-in" style="margin-left:15px"></i>
+                  <i class="fa-brands fa-twitter" style="margin-left:15px"></i>
+                  <i class="fa-brands fa-youtube" style="margin-left:15px"></i>
+                </div>
+
+                <hr style=" background-color:black">
+                <div class="row justify-content-center text-white">
+                  <i class="fa-sharp fa-regular fa-copyright" style="font-size:12px;padding-top:6px"></i><p style="font-weight:bolder">2025 SIET. All rights reserved.</p>
+                </div>
+              </div>
+<script>
+    function notification(){
+        alert("The Admit card will made available for you , one week earlier of your  semester exam");
+    }
+    function copy(){
+        alert("the Link is copied to clipboard");
+    }
+    function showattendance(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="block";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+         document.getElementById('sr').style.display="none";
+         document.getElementById('rf').style.display="none";
+    }
+    function showcamarks(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="block";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+         document.getElementById('sr').style.display="none";
+         document.getElementById('rf').style.display="none";
+    }
+    function showregistration(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="block";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+         document.getElementById('sr').style.display="none";
+         document.getElementById('rf').style.display="none";
+    }
+    function showresult(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('p').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="block";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+         document.getElementById('sr').style.display="none";
+         document.getElementById('rf').style.display="none";
+    }
+    function showmentor(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="block";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+         document.getElementById('sr').style.display="none";
+         document.getElementById('rf').style.display="none";
+    }
+    function showstudentactivity(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('p').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="block";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+        document.getElementById('sr').style.display="none";
+        document.getElementById('rf').style.display="none";
+    }
+    function showonlineexam(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('p').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="block";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+        document.getElementById('sr').style.display="none";
+        document.getElementById('rf').style.display="none";
+    }
+    function showassignment(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="block";
+        document.getElementById('uqp').style.display="none";
+        document.getElementById('sr').style.display="none";
+        document.getElementById('rf').style.display="none";
+    }
+    function showquestion(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="block";
+        document.getElementById('sr').style.display="none";
+        document.getElementById('rf').style.display="none";
+    }
+    function showstudy(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+        document.getElementById('sr').style.display="block";
+        document.getElementById('rf').style.display="none";
+    }
+    function showpayment(){
+        document.getElementById('info').style.display="none";
+        document.getElementById('ad').style.display="none";
+        document.getElementById('rc').style.display="none";
+        document.getElementById('rs').style.display="none";
+        document.getElementById('p').style.display="block";
+        document.getElementById('mt').style.display="none";
+        document.getElementById('cm').style.display="none";
+        document.getElementById('sa').style.display="none";
+        document.getElementById('oe').style.display="none";
+        document.getElementById('am').style.display="none";
+        document.getElementById('uqp').style.display="none";
+         document.getElementById('sr').style.display="none";
+         document.getElementById('rf').style.display="none";
+    }
+</script>
+</body>
+</html>
